@@ -27,6 +27,33 @@ dir=`pwd`
 lowname=`echo "TasteLondon" | tr "[A-Z]" "[a-z]"`
 main=$dir/$lowname/$name
 
+projectSetup() {
+
+	mkdir $lowname
+	cd $lowname
+
+	echo "Creating Android project"
+	android -v create project -t $target -n $name -p ./$name -a $activity -k $package
+
+	echo "Creating test project"
+	android -v create test-project -n $testname  -p ./$testname -m $main
+	cd ..
+}
+
+eclipseSetup() {
+	cd $lowname/$name
+	mvn eclipse:eclipse
+
+	cd ../$testname
+	mvn eclipse:eclipse
+	cd ../..
+}
+
+pomSetup() {
+	# probably run another script to make the pom.xml files
+	# ruby/python/groovy
+}
+
 echo "Create test project with details"
 echo "Name: $name"
 echo "package: $package"
@@ -34,13 +61,10 @@ echo "Test name: $testname"
 echo "target: $target"
 echo "Activity: $activity"
 
-mkdir $lowname
-cd $lowname
+projectSetup
+#pomSetup
+#eclipseSetup
+#templates
 
-echo "Creating Android project"
-android -v create project -t $target -n $name -p ./$name -a $activity -k $package
-
-echo "Creating test project"
-android -v create test-project -n $testname  -p ./$testname -m $main
 
 exit $?
