@@ -1,0 +1,8 @@
+Scripts useful in project development.
+
+create.sh
+	Promts the user for name, package, target android version and the default activity name and creates two Android projects (app and instrumentation) in the current directory.
+		lowercasename
+			|--name
+			`--nameTest
+
