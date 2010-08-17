@@ -52,6 +52,7 @@ eclipseSetup() {
 pomSetup() {
 	# probably run another script to make the pom.xml files
 	# ruby/python/groovy
+	pwd
 }
 
 echo "Create test project with details"
