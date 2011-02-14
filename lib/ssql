@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'rexml/document'
+include REXML
+
+begin
+  manifest = Document.new(File.new("AndroidManifest.xml"))
+rescue Exception=>e
+  puts "Could not find AndroidManifest.xml, please use at root of Android project"
+  exit(0)
+end
+
+package = XPath.each(manifest, "//manifest@package").first.attribute("package").value
+
+exec "adb shell /data/data/#{package}/databases/#{package}.db #{ARGV[0].to_s}"
